@@ -1,6 +1,22 @@
+""""
+bullscows.py: Second project to Engeto Online Python Academy
+author: Martin Mannsbarth
+email: mann.m@seznam.cz
+discord: Martin M.#4226
+"""
+
 # import libraries
 import random
 import sys
+
+
+# generate number without duplicates, use
+# for check function no_duplicates()
+def generate_number():
+    while True:
+        num = random.randint(1000,9999)
+        if no_duplicates(num):
+            return num
 
 # function returns list of digits
 def get_digits(num):
@@ -10,16 +26,41 @@ def get_digits(num):
 #  secret number and user guess
 def no_duplicates(num):
     num_dup = get_digits(num)
- # for debug purpose   
- #   print(num_dup)
+ # for debug purpose possible print function run   
+    print(num_dup)
  #   print(len(num_dup))
  #   print(len(set(num_dup)))
     if len(num_dup) == len(set(num_dup)):
         return True
     else:
         return False
-    
 
+def num_bulls_cows(num,attempt):
+    bulls_cows = [0,0]
+    gen_num = get_digits(num)
+    attempt_num = get_digits(attempt)
+    
+# use built-in function zip() 
+# function returns a zip object, which is an iterator of tuples
+# where the first item in each passed iterator is paired together, 
+# and then the second item in each passed iterator are paired together etc.  
+    for gen,att in zip(gen_num,attempt_num):
+          
+# check digit present
+        if att in gen_num:
+          
+# if digit exact match, plus bull
+            if gen == att:
+                bulls_cows[0] += 1
+              
+# if digit match but in incorrect position, plus cow
+            else:
+                bulls_cows[1] += 1
+                 
+    return bulls_cows
+
+    
+# menu construction
 menu_options = {
     1: 'Play game',
     2: 'Manual',
@@ -27,30 +68,56 @@ menu_options = {
     4: 'Exit',
 }
 
+# function print menu and offer options
 def print_menu():
     for key in menu_options.keys():
         print (key, '--', menu_options[key] )
 
 def option1():
-     print('Game started.')
-     attempt = input("Enter a number: ")
-     while (attempt.isdigit() and int(len(attempt)) == 4 and (9999 > int(attempt) > 1000) and (no_duplicates(attempt) == True)) == False:
-         if attempt.isdigit() == False:
-             print("Please enter number from range, your enter:\"", attempt,"\".use number in range 1000-9999.")
-         elif int(len(attempt)) != 4:
-             print("Please enter longer number, your enter: \"",attempt,"\" and it is out of range 1000-9999.")
-         elif (9999 > int(attempt) > 1000) == False:
-             print("Please number in ranger, your enter: \"",str(attempt),"\"and it is out of range 1000-9999.")
-         elif no_duplicates(attempt) == False:
-             print("Number should not have repeated digits.")
-         attempt = input("Enter a number: ")
-
-
+    print('Game started.')
+     
+# generate number for guess purpose
+    num = generate_number()
+    guess =int(input('Enter number of attempts for guess: '))
+    while guess > 0:
+# insert user attempt and verify that match conditions - no duplicates, 4 digits, don´t start with 0
+         attempt = input("Enter a number for guess: ")
+         while (attempt.isdigit() and int(len(attempt)) == 4 and (9999 > int(attempt) > 1000) and (no_duplicates(attempt) == True)) == False:
+             if attempt.isdigit() == False:
+                 print("Please enter number from range, your enter:\"", attempt,"\".use number in range 1000-9999.")
+             elif int(len(attempt)) != 4:
+                 print("Please enter longer number, your enter: \"",attempt,"\" and it is out of range 1000-9999.")
+             elif (9999 > int(attempt) > 1000) == False:
+                 print("Please number in ranger, your enter: \"",str(attempt),"\"and it is out of range 1000-9999.")
+             elif no_duplicates(attempt) == False:
+                 print("Number should not have repeated digits.")
+             attempt = input("Enter a number: ")
+         
+         bull_cow = num_bulls_cows(num,attempt)
+         print(f"{bull_cow[0]} bulls, {bull_cow[1]} cows")
+         guess -=1
+         
+         if bull_cow[0] == 4:
+             print("Success,it is right nunber!")
+             break
+    else:
+        print(f"All tipping attempts exhausted. Number was {num}.")
+         
+     
 def option2():
-     print('Handle option \'Option 2\'')
+     print('Simple manual for game')
 
 def option3():
-     print('Handle option \'Option 3\'')
+     print('About - author details:')
+     print(
+"""
+bullscows.py: Second project to Engeto Online Python Academy
+type of program: text game
+author: Martin Mannsbarth
+email: mann.m@seznam.cz
+discord: Martin M.#4226
+"""
+     )
 
 
 # Run own program - choose a handle option
