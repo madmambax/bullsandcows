@@ -9,6 +9,26 @@ discord: Martin M.#4226
 import random
 import sys
 
+# delimeter
+delimeter = "-" * 64
+
+#function bull/bulls
+def bull_s(bull_cow):
+    if bull_cow[0] == 1:
+        bull = "bull"
+        return bull
+    else:
+        bull = "bulls"
+        return bull
+
+# function cow/cows
+def cow_s(bull_cow):
+    if bull_cow[1] == 1:
+        cow = "cow"
+        return cow
+    else:
+        cow = "cows"
+        return cow
 
 # generate number without duplicates, use
 # for check function no_duplicates()
@@ -72,12 +92,14 @@ menu_options = {
 def print_menu():
     for key in menu_options.keys():
         print (key, '--', menu_options[key] )
+    print(delimeter)
 
 def option1():
     print('Game started.')
      
 # generate number for guess purpose
     num = generate_number()
+    counter = 0
     guess =int(input('Enter number of attempts for guess: '))
     while guess > 0:
 # insert user attempt and verify that match conditions - no duplicates, 4 digits, don´t start with 0
@@ -94,14 +116,28 @@ def option1():
              attempt = input("Enter a number: ")
          
          bull_cow = num_bulls_cows(num,attempt)
-         print(f"{bull_cow[0]} bulls, {bull_cow[1]} cows")
+         bull = bull_s(bull_cow)
+         cow = cow_s(bull_cow)
+         print(f"{bull_cow[0]} {bull}, {bull_cow[1]} {cow}.")
+         print(delimeter)
+         counter += 1
          guess -=1
          
-         if bull_cow[0] == 4:
-             print("Success,it is right nunber!")
+         if bull_cow[0] == 4 and counter < 6:
+             print("Success,it is right nunber! Great performance!")
+             print(delimeter)
              break
+         elif bull_cow[0] == 4 and 6 <= counter <= 12:
+             print("Success,it is right nunber! That's not bad!")
+             print(delimeter)
+             break
+         elif bull_cow[0] == 4 and counter > 12:
+             print("Success,it is right nunber! Pretty weak")
+             print(delimeter)
+             break
+         
     else:
-        print(f"All tipping attempts exhausted. Number was {num}.")
+        print(f"Game over. All tipping attempts exhausted. Number was {num}.\n{delimeter}")
          
      
 def option2():
@@ -122,10 +158,14 @@ discord: Martin M.#4226
 
 # Run own program - choose a handle option
 if __name__=='__main__':
+    print("Welcome to the game Bulls and Cows.")
+    print(delimeter)
     while(True):
+        print("Choose your option from menu ->")
         print_menu()
         option = ''
         try:
+            print(delimeter)
             option = int(input('Enter your choice: '))
         except:
             print('Wrong input. Please enter a number ...')
