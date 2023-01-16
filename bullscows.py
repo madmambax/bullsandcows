@@ -99,12 +99,17 @@ def option1():
      
 # generate number for guess purpose
     num = generate_number()
+    guess = 0
     counter = 0
-    guess =int(input('Enter number of attempts for guess: '))
-    while guess > 0:
+    guess = input('Enter number of attempts for guess: ')
+    while guess.isdigit() == False:
+        guess = input('Enter number of attempts for guess: ')
+        
+    while int(guess) > 0:
 # insert user attempt and verify that match conditions - no duplicates, 4 digits, don´t start with 0
          attempt = input("Enter a number for guess: ")
-         while (attempt.isdigit() and int(len(attempt)) == 4 and (9999 > int(attempt) > 1000) and (no_duplicates(attempt) == True)) == False:
+         while (attempt.isdigit() and int(len(attempt)) == 4 and
+                (9999 > int(attempt) > 1000) and (no_duplicates(attempt) == True)) == False:
              if attempt.isdigit() == False:
                  print("Please enter number from range, your enter:\"", attempt,"\".use number in range 1000-9999.")
              elif int(len(attempt)) != 4:
@@ -121,7 +126,7 @@ def option1():
          print(f"{bull_cow[0]} {bull}, {bull_cow[1]} {cow}.")
          print(delimeter)
          counter += 1
-         guess -=1
+         guess = int(guess) -1
          
          if bull_cow[0] == 4 and counter < 6:
              print("Success,it is right nunber! Great performance!")
@@ -141,11 +146,29 @@ def option1():
          
      
 def option2():
-     print('Simple manual for game')
+     print('Simple manual for game:\n')
+     print("""
+Cows and Bulls is a game usually played between 2 players.
+In this, a player tries to guess a secret code number chosen
+by the second player. 
+The rules are as follows:      
+1) A player will create a secret code, usually a 4-digit number.
+2) This number should have no repeated digits.
+3) Another player makes a guess (4 digit number) to crack the secret number.
+   Upon making a guess, 2 hints will be provided- Cows and Bulls.
+4) Bulls indicate the number of correct digits in the correct position and
+   cows indicates the number of correct digits in the wrong position. 
+   For example, if the secret code is 1234 and the guessed number is 1246 then
+   we have 2 BULLS (for the exact matches of digits 1 and 2) and 1 COW (for the match
+   of digit 4 in the wrong position)
+5) The player keeps on guessing until the secret code is cracked.
+   The player who guesses in the minimum number of tries wins.          
+           """)
+     print(delimeter)
 
 def option3():
-     print('About - author details:')
-     print(
+    print('About - author details:')
+    print(
 """
 bullscows.py: Second project to Engeto Online Python Academy
 type of program: text game
@@ -154,7 +177,7 @@ email: mann.m@seznam.cz
 discord: Martin M.#4226
 """
      )
-
+    print(delimeter)
 
 # Run own program - choose a handle option
 if __name__=='__main__':
