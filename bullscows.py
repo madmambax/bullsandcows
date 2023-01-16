@@ -103,7 +103,7 @@ def option1():
     guess = 0
     counter = 0
     guess = input('Enter number of attempts for guess: ')
-    while guess.isdigit() == False:
+    while (guess.isdigit() == True and int(guess) > 0) == False:
         guess = input('Enter number of attempts for guess: ')
         
     while int(guess) > 0:
