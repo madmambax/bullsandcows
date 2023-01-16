@@ -12,7 +12,8 @@ import sys
 # delimeters
 delimeter = "-" * 64
 delimeter2 = "*" * 64
-#function bull/bulls
+
+#function bull/bulls singular or plural
 def bull_s(bull_cow):
     if bull_cow[0] == 1:
         bull = "bull"
@@ -21,7 +22,7 @@ def bull_s(bull_cow):
         bull = "bulls"
         return bull
 
-# function cow/cows
+# function cow/cows singular or plural
 def cow_s(bull_cow):
     if bull_cow[1] == 1:
         cow = "cow"
@@ -97,7 +98,7 @@ def print_menu():
 def option1():
     print('Game started.')
      
-# generate number for guess purpose
+# insert number for guess counter and attempt counter, check insert purpose
     num = generate_number()
     guess = 0
     counter = 0
@@ -106,7 +107,8 @@ def option1():
         guess = input('Enter number of attempts for guess: ')
         
     while int(guess) > 0:
-# insert user attempt and verify that match conditions - no duplicates, 4 digits, don´t start with 0
+
+# insert user attempt and verify that match conditions - no duplicates, 4 digits, don´t start with 0, no any character
          attempt = input("Enter a number for guess: ")
          while (attempt.isdigit() and int(len(attempt)) == 4 and
                 (9999 > int(attempt) > 1000) and (no_duplicates(attempt) == True)) == False:
@@ -120,6 +122,7 @@ def option1():
                  print("Number should not have repeated digits.")
              attempt = input("Enter a number: ")
          
+# return count bulls, cows from function, check single/plural for words, attempts counter        
          bull_cow = num_bulls_cows(num,attempt)
          bull = bull_s(bull_cow)
          cow = cow_s(bull_cow)
@@ -128,23 +131,24 @@ def option1():
          counter += 1
          guess = int(guess) -1
          
+# verification and resolution for guess- great, no bad. weak...        
          if bull_cow[0] == 4 and counter < 6:
-             print("Success,it is right nunber! Great performance!\nEnd of game.")
+             print(f"Success,it is right nunber! Great performance!\nOnly {counter} attempts! End of game.")
              print(delimeter)
              break
          elif bull_cow[0] == 4 and 6 <= counter <= 12:
-             print("Success,it is right nunber! That's not bad!")
+             print(f"Success,it is right nunber! That's not bad! {counter} attempts!")
              print(delimeter)
              break
          elif bull_cow[0] == 4 and counter > 12:
-             print("Success,it is right nunber! Pretty weak guess.")
+             print(f"Success,it is right nunber! Pretty weak guess - {counter} attempts.")
              print(delimeter)
              break
-         
+# out of attempts set when game start    
     else:
         print(f"Game over. All tipping attempts exhausted. Number was {num}.\n{delimeter}")
          
-     
+# print manual    
 def option2():
     print(delimeter)
     print('Simple manual for game:\n')
@@ -167,6 +171,7 @@ The rules are as follows:
            """)
     print(delimeter)
 
+# print info about author, contact
 def option3():
     print(delimeter2)
     print('About - author details:')
@@ -194,7 +199,8 @@ if __name__=='__main__':
             option = int(input('Enter your choice: '))
         except:
             print('Wrong input. Please enter a number ...')
-        #Check what choice was entered and act accordingly
+            
+# Check what choice was entered and act accordingly
         if option == 1:
            option1()
         elif option == 2:
