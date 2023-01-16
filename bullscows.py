@@ -9,9 +9,9 @@ discord: Martin M.#4226
 import random
 import sys
 
-# delimeter
+# delimeters
 delimeter = "-" * 64
-
+delimeter2 = "*" * 64
 #function bull/bulls
 def bull_s(bull_cow):
     if bull_cow[0] == 1:
@@ -47,7 +47,7 @@ def get_digits(num):
 def no_duplicates(num):
     num_dup = get_digits(num)
  # for debug purpose possible print function run   
-    print(num_dup)
+ #   print(num_dup)
  #   print(len(num_dup))
  #   print(len(set(num_dup)))
     if len(num_dup) == len(set(num_dup)):
@@ -129,7 +129,7 @@ def option1():
          guess = int(guess) -1
          
          if bull_cow[0] == 4 and counter < 6:
-             print("Success,it is right nunber! Great performance!")
+             print("Success,it is right nunber! Great performance!\nEnd of game.")
              print(delimeter)
              break
          elif bull_cow[0] == 4 and 6 <= counter <= 12:
@@ -137,7 +137,7 @@ def option1():
              print(delimeter)
              break
          elif bull_cow[0] == 4 and counter > 12:
-             print("Success,it is right nunber! Pretty weak")
+             print("Success,it is right nunber! Pretty weak guess.")
              print(delimeter)
              break
          
@@ -146,9 +146,10 @@ def option1():
          
      
 def option2():
-     print('Simple manual for game:\n')
-     print("""
-Cows and Bulls is a game usually played between 2 players.
+    print(delimeter)
+    print('Simple manual for game:\n')
+    print("""
+Bulls and Cows is a game usually played between 2 players.
 In this, a player tries to guess a secret code number chosen
 by the second player. 
 The rules are as follows:      
@@ -164,9 +165,10 @@ The rules are as follows:
 5) The player keeps on guessing until the secret code is cracked.
    The player who guesses in the minimum number of tries wins.          
            """)
-     print(delimeter)
+    print(delimeter)
 
 def option3():
+    print(delimeter2)
     print('About - author details:')
     print(
 """
@@ -177,7 +179,7 @@ email: mann.m@seznam.cz
 discord: Martin M.#4226
 """
      )
-    print(delimeter)
+    print(delimeter2)
 
 # Run own program - choose a handle option
 if __name__=='__main__':
